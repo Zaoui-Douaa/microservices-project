@@ -1,0 +1,18 @@
+server:
+  port: 8081
+  
+spring:
+  application:
+    name: products-service
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: ethical_cosmetics_dev
+      username: root
+      password: root
+      authentication-database: admin
+
+logging:
+  level:
+    com.cosmetics.products: DEBUG
