@@ -12,7 +12,39 @@ spring:
       username: root
       password: root
       authentication-database: admin
-      
+
+
+# Configuration Feign pour debugging
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+        connectTimeout: 5000
+        readTimeout: 10000
+
+# Configuration des logs pour voir l'erreur
 logging:
   level:
     com.cosmetics.products: DEBUG
+    com.cosmetics.products.client: DEBUG
+    feign: DEBUG
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+resilience4j:
+  circuitregistry:
+    configs:
+      default:
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true

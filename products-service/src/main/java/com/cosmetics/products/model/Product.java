@@ -16,7 +16,7 @@ public class Product {
     private String id;
 
     private String name;
-    private String brandId;
+    private Long brandId;
     private Double price;
     private String category;
     private List<String> ingredients;

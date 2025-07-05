@@ -1,7 +1,0 @@
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/model/Product.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/dto/ProductDto.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/repository/ProductRepository.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/service/ProductService.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/ProductServiceApplication.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/mapper/ProductMapper.java
-/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/controller/ProductController.java

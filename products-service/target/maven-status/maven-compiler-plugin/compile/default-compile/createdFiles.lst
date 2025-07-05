@@ -1,8 +1,0 @@
-com/cosmetics/products/controller/ProductController.class
-com/cosmetics/products/dto/ProductDto.class
-com/cosmetics/products/model/Product.class
-com/cosmetics/products/mapper/ProductMapper.class
-com/cosmetics/products/ProductServiceApplication.class
-com/cosmetics/products/repository/ProductRepository.class
-com/cosmetics/products/service/ProductService.class
-com/cosmetics/products/mapper/ProductMapperImpl.class

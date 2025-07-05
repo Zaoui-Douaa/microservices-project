@@ -1,8 +1,0 @@
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/controller/BrandController.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/entity/Brand.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/service/BrandService.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/repository/BrandRepository.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/converter/StringToListConverter.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/dto/BrandDto.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/BrandServiceApplication.java
-/home/dzaoui/microservices-project/brands-service/src/main/java/com/cosmetics/brands/mapper/BrandMapper.java

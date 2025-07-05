@@ -40,4 +40,10 @@ public class ProductController {
     public void deleteProduct(@PathVariable String id) {
         service.deleteProduct(id);
     }
+
+    @GetMapping("/{id}/with-brand")
+    public ProductDto getProductWithBrand(@PathVariable String id) {
+        return service.getProductWithBrand(id);
+    }
+
 }

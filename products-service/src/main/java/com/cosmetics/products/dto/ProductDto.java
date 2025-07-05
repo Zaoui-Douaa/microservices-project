@@ -1,5 +1,7 @@
 package com.cosmetics.products.dto;
 
+import com.cosmetics.products.mapper.ProductMapper;
+
 import lombok.*;
 import java.util.List;
 
@@ -9,10 +11,13 @@ import java.util.List;
 public class ProductDto {
     private String id;
     private String name;
-    private String brandId;
+    private Long brandId;
     private Double price;
     private String category;
     private List<String> ingredients;
     private List<String> labels;
     private boolean inStock;
+
+    private BrandDto brand;
+    
 }

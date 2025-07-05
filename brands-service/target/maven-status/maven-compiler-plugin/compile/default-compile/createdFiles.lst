@@ -1,9 +1,0 @@
-com/cosmetics/brands/repository/BrandRepository.class
-com/cosmetics/brands/BrandServiceApplication.class
-com/cosmetics/brands/mapper/BrandMapperImpl.class
-com/cosmetics/brands/controller/BrandController.class
-com/cosmetics/brands/service/BrandService.class
-com/cosmetics/brands/entity/Brand.class
-com/cosmetics/brands/converter/StringToListConverter.class
-com/cosmetics/brands/dto/BrandDto.class
-com/cosmetics/brands/mapper/BrandMapper.class
