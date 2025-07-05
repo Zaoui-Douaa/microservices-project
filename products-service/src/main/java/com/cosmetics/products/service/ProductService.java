@@ -1,8 +1,8 @@
 package com.cosmetics.products.service;
 
 import com.cosmetics.products.client.BrandClient;
-import com.cosmetics.products.dto.ProductDto;
-import com.cosmetics.products.dto.BrandDto; 
+import com.cosmetics.shared.dto.ProductDto;
+import com.cosmetics.shared.dto.BrandDto; 
 import com.cosmetics.products.mapper.ProductMapper;
 import com.cosmetics.products.model.Product;
 import com.cosmetics.products.repository.ProductRepository;
@@ -55,47 +55,16 @@ public class ProductService {
 
     @CircuitBreaker(name = "brandService", fallbackMethod = "getDefaultBrand")
     public ProductDto getProductWithBrand(String productId) {
-        logger.info("=== DÉBUT getProductWithBrand pour productId: {} ===", productId);
+
+        Product product = repository.findById(productId).orElseThrow();
         
-        try {
-            // 1. Récupération du produit
-            logger.info("Étape 1: Recherche du produit...");
-            Product product = repository.findById(productId)
-                .orElseThrow(() -> {
-                    logger.error("Produit non trouvé avec l'ID: {}", productId);
-                    return new RuntimeException("Produit non trouvé avec l'ID : " + productId);
-                });
-            
-            logger.info("Produit trouvé - Nom: {}, BrandId: {}", product.getName(), product.getBrandId());
+        BrandDto brand = brandClient.getBrandById(product.getBrandId());
 
-            // 2. Vérification du brandId
-            if (product.getBrandId() == null) {
-                logger.error("BrandId est null pour le produit: {}", productId);
-                throw new RuntimeException("Ce produit n'a pas de marque associée");
-            }
+        ProductDto dto = mapper.toDto(product);
 
-            // 3. Appel FeignClient
-            logger.info("Étape 2: Appel FeignClient pour brandId: {}", product.getBrandId());
-            BrandDto brand = brandClient.getBrandById(product.getBrandId());
-            logger.info("Marque récupérée avec succès: {}", brand != null ? brand.getName() : "null");
-            
-            // 4. Création du DTO
-            logger.info("Étape 3: Création du ProductDto...");
-            ProductDto dto = mapper.toDto(product);
-            dto.setBrand(brand);
-            
-            logger.info("=== FIN getProductWithBrand - SUCCÈS ===");
-            return dto;
-            
-        } catch (Exception e) {
-            logger.error("=== ERREUR dans getProductWithBrand ===");
-            logger.error("Type d'exception: {}", e.getClass().getSimpleName());
-            logger.error("Message: {}", e.getMessage());
-            logger.error("Stack trace: ", e);
-            
-            // Re-throw l'exception pour que Spring Boot génère une réponse d'erreur
-            throw new RuntimeException("Erreur lors de la récupération du produit avec marque: " + e.getMessage(), e);
-        }
+        dto.setBrand(brand);
+
+        return dto;
     }
 
     private ProductDto getDefaultBrand(String productId, Throwable t) {

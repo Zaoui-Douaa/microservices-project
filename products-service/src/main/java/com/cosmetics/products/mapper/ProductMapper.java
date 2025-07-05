@@ -1,6 +1,6 @@
 package com.cosmetics.products.mapper;
 
-import com.cosmetics.products.dto.ProductDto;
+import com.cosmetics.shared.dto.ProductDto;
 import com.cosmetics.products.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

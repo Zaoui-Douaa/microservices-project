@@ -1,6 +1,6 @@
 package com.cosmetics.products.controller;
 
-import com.cosmetics.products.dto.ProductDto;
+import com.cosmetics.shared.dto.ProductDto;
 import com.cosmetics.products.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 

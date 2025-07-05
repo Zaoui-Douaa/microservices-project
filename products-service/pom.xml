@@ -19,13 +19,13 @@
 
     <dependencies>
 
-        <!--
+        
         <dependency>
-			<groupId>com.cosmetics</groupId>
+            <groupId>com.cosmetics</groupId>
             <artifactId>shared</artifactId>
-            <version>1.0</version>
-		</dependency>
-        -->
+            <version>1.0.0</version>
+        </dependency>
+        
 
         <!-- Spring Boot Web -->
         <dependency>
