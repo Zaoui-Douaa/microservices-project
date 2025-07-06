@@ -23,7 +23,6 @@ public class BrandService {
         return mapper.toDtos(repository.findAll());
     }
 
-    @Override
     public BrandDto getBrandById(Long id) {
         return repository.findById(id).map(mapper::toDto).orElse(null);
     }
