@@ -11,6 +11,9 @@
 
     <modules>
         <module>shared</module>
+        <module>config-server</module>
+        <module>eureka-server</module>
+        <module>gateway-service</module>
         <module>products-service</module>
         <module>brands-service</module>
     </modules>
@@ -51,6 +54,17 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
+
+            <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-security</artifactId>
+                </dependency>
+
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-spring-boot-starter</artifactId>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

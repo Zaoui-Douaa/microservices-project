@@ -1,0 +1,13 @@
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/model/Product.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/dto/ProductDto.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/repository/ProductRepository.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/ProductServiceApplication.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/dto/BrandDto.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/controller/ProductController.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/config/KafkaProductTopicConfig.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/client/BrandClient.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/service/ProductService.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/client/FallBackFeignClient.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/kafka/ProductEventProducer.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/exception/GlobalExceptionHandler.java
+/home/dzaoui/microservices-project/products-service/src/main/java/com/cosmetics/products/mapper/ProductMapper.java

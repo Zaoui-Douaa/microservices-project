@@ -1,44 +1,20 @@
-server:
-  port: 8888
-  
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ms
+
   application:
-    name: gateway-service
-  cloud:
-    gateway:
-      server:
-        webflux:
-          discovery:
-            locator:
-              enabled: true
-              lower-case-service-id: true
-          routes:
-            - id: products-service
-              uri: lb://PRODUCTS-SERVICE
-              predicates:
-                - Path=/api/products/**
-            - id: brands-service
-              uri: lb://BRANDS-SERVICE
-              predicates:
-                - Path=/api/brands/**
+    name: gateway
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka/
-  instance:
-    preferIpAddress: true
+  profiles:
+    active: dev
 
-resilience4j:
-  circuitbreaker:
-    configs:
-      default:
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-        sliding-window-size: 10
-        minimum-number-of-calls: 5
-    instances:
-      productsCircuitBreaker:
-        base-config: default
-      brandsCircuitBreaker:
-        base-config: default
+  config:
+    import: optional:configserver:http://config-server:8088
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
