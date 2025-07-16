@@ -57,7 +57,7 @@ services:
     build: ./products-service
     container_name: products-service
     ports:
-      - "8081:8081"
+      - "8085:8085"
     depends_on:
       - mongo
       - kafka
@@ -210,7 +210,7 @@ services:
     image: sonatype/nexus3:latest
     container_name: nexus
     ports:
-      - "8085:8085"
+      - "8081:8081"
       - "5000:5000"
     volumes:
       - nexus_data:/nexus-data
