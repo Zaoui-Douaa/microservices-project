@@ -1,0 +1,39 @@
+{
+  "realm": "ms",
+  "enabled": true,
+  "displayName": "MS Realm",
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@ms.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "ms-client",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "QlLRfOtyatcU56noFaPP7FTqwAP1hqda",
+      "redirectUris": [
+        "*"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "protocol": "openid-connect",
+      "webOrigins": ["+"],
+      "fullScopeAllowed": true
+    }
+  ]
+}

@@ -4,6 +4,9 @@ pipeline {
     environment {
         NEXUS_URL = 'http://localhost:8081'
         NEXUS_REPO = 'maven-releases'
+        DOCKER_HUB_CRED = credentials('docker-hub-credentials')
+        IMAGE_NAME = "douaxx"
+        IMAGE_TAG = "1.0.0"
     }
 
     stages {
@@ -18,7 +21,7 @@ pipeline {
                 sh 'jenkins/scripts/deploy_jars.sh'
             }
         }
-
+/*
         stage('Start Databases') {
             steps {
                 sh 'jenkins/scripts/start_databases.sh'
@@ -116,23 +119,53 @@ pipeline {
                 sh 'jenkins/scripts/build_run_microservices.sh'
             }
         }
+    stage('Docker Image - config-server') {
+        steps {
+            echo 'Création de l’image Docker pour config-server :'
+            dir('config-server') {  // se placer dans le dossier config-server
+                sh 'docker build -t $IMAGE_NAME/config-server:$IMAGE_TAG .'
+            }
+        }
+    }
+
+    stage('Docker Hub - config-server') {
+        steps {
+            echo 'Push de l’image config-server vers Docker Hub :'
+            sh '''
+                docker login -u $DOCKER_HUB_CRED_USR -p $DOCKER_HUB_CRED_PSW
+                docker push $IMAGE_NAME/config-server:$IMAGE_TAG
+            '''
+        }
+    }
+*/
     }
     post {
         success {
-            echo 'Pipeline completed successfully. All services are built, deployed to Nexus, and running.'
+            mail to: 'jenkinsserver15@gmail.com',
+                 subject: '✅ SUCCESS - Pipeline Passed',
+                 body: "The Jenkins pipeline has successfully completed. All stages passed.\n\n" +
+                       "Project: tp-foyer\n" +
+                       "Job: ${env.JOB_NAME}\n" +
+                       "Build: ${env.BUILD_NUMBER}\n" +
+                       "URL du Build: ${env.BUILD_URL}"
         }
         failure {
-            echo 'Pipeline failed.'
-            mail to: 'douaa@store.com',
-                subject: "Jenkins Pipeline Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """\
-                    The Jenkins pipeline for ${env.JOB_NAME} has failed.
-
-                    Check details and console output:
-                    ${env.BUILD_URL}
-
-                    Action is required.
-                    """
+            mail to: 'jenkinsserver15@gmail.com',
+                 subject: '❌ FAILURE - Pipeline Failed',
+                 body: "The Jenkins pipeline failed. Please check the Jenkins logs for more details.\n\n" +
+                       "Project: tp-foyer\n" +
+                       "Job: ${env.JOB_NAME}\n" +
+                       "Build: ${env.BUILD_NUMBER}\n" +
+                       "URL du Build: ${env.BUILD_URL}"
+        }
+        unstable {
+            mail to: 'jenkinsserver15@gmail.com',
+                 subject: '⚠️ UNSTABLE - Coverage Below Threshold',
+                 body: "The pipeline is unstable due to low code coverage or test failures.\n\n" +
+                       "Project: tp-foyer\n" +
+                       "Job: ${env.JOB_NAME}\n" +
+                       "Build: ${env.BUILD_NUMBER}\n" +
+                       "URL du Build: ${env.BUILD_URL}"
         }
     }
 }
