@@ -4,7 +4,6 @@ pipeline {
     environment {
         NEXUS_URL = 'http://localhost:8081'
         NEXUS_REPO = 'maven-releases'
-        NEXUS_CRED = credentials('nexus-credentials')
     }
 
     stages {
@@ -13,6 +12,176 @@ pipeline {
                 sh 'jenkins/scripts/build_jars.sh'
             }
         }
+
+        stage('Deploy JARs to Nexus') {
+            steps {
+                sh 'jenkins/scripts/deploy_jars.sh'
+            }
+        }
+
+        stage('Start Databases') {
+            steps {
+                sh 'jenkins/scripts/start_databases.sh'
+            }
+        }
+
+        stage('Wait for Databases Ready') {
+            steps {
+                script {
+                    waitForContainerHealth('keycloak', 'pg_isready -U keycloak')
+                    waitForContainerHealth('products-service', "mongo --username root --password root --eval \"db.adminCommand('ping')\"")
+                    waitForContainerHealth('brands-service', 'mysqladmin ping -u root -proot')
+                }
+            }
+        }
+
+        stage('Start keycloak and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d keycloak'
+                    waitForLogReady('keycloak', 'started in')
+                }
+            }
+        }
+
+        stage('Start Zookeeper and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d zookeeper'
+                    waitForLogReady('zookeeper', 'binding to port')
+                }
+            }
+        }
+
+        stage('Start kafka and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d kafka'
+                    waitForLogReady('kafka', 'started')
+                }
+            }
+        }
+
+        stage('Start kafdrop and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d kafdrop'
+                }
+            }
+        }
+
+        stage('Start Prometheus and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d prometheus'
+                    waitForLogReady('prometheus', 'Server is ready to receive web requests')
+                }
+            }
+        }
+
+        stage('Start Grafana and make it ready') {
+            steps {
+                script {
+                    sh 'docker-compose up -d grafana'
+                    waitForHttpService('http://localhost:3000/api/health')
+                }
+            }
+        }
+
+        stage('Build and Run Config Server') {
+            steps {
+                sh 'jenkins/scripts/build_run_config_server.sh'
+                waitForHttpService('http://localhost:8088/actuator/health')
+            }
+        }
+
+        stage('Build and Run Eureka Server') {
+            steps {
+                sh 'jenkins/scripts/build_run_eureka_server.sh'
+                waitForHttpService('http://localhost:8761/actuator/health')
+            }
+        }
+
+        stage('Start Gateway and make it ready') {
+            steps {
+                script {
+                    sh 'jenkins/scripts/build_run_gateway.sh'
+                    waitForHttpService('http://localhost:8888/actuator/health')
+                }
+            }
+        }
+
+        stage('Build and Run Microservices') {
+            steps {
+                sh 'jenkins/scripts/build_run_microservices.sh'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully. All services are built, deployed to Nexus, and running.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+            mail to: 'douaa@store.com',
+                subject: "Jenkins Pipeline Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """\
+                    The Jenkins pipeline for ${env.JOB_NAME} has failed.
+
+                    Check details and console output:
+                    ${env.BUILD_URL}
+
+                    Action is required.
+                    """
+        }
+    }
 }
 
+def waitForHttpService(url) {
+    timeout(time: 3, unit: 'MINUTES') {
+        waitUntil {
+            script {
+                def status = sh(
+                    script: "curl -s ${url} | grep '\"status\":\"UP\"' || true",
+                    returnStatus: true
+                )
+                if (status == 0) {
+                    echo "Service at ${url} is UP"
+                    return true
+                } else {
+                    echo "Waiting for service at ${url} to be UP..."
+                    return false
+                }
+            }
+        }
+    }
+}
+
+
+def waitForContainerHealth(container, checkCommand) {
+    timeout(time: 3, unit: 'MINUTES') {
+        waitUntil {
+            script {
+                def status = sh(
+                    script: "docker exec ${container} ${checkCommand} || true",
+                    returnStatus: true
+                )
+                return (status == 0)
+            }
+        }
+    }
+}
+
+def waitForLogReady(container, logKeyword) {
+    timeout(time: 3, unit: 'MINUTES') {
+        waitUntil {
+            script {
+                def found = sh(
+                    script: "docker logs ${container} | grep '${logKeyword}' || true",
+                    returnStatus: true
+                )
+                return (found == 0)
+            }
+        }
+    }
 }

@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
-echo "Building and running gateway..."
-docker-compose build gateway
-docker-compose up -d gateway
+echo "Building and running gateway-service..."
+docker-compose build gateway-service
+docker-compose up -d gateway-service
