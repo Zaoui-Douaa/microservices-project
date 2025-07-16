@@ -7,6 +7,7 @@ pipeline {
         DOCKER_HUB_CRED = credentials('docker-hub-credentials')
         IMAGE_NAME = "douaxx"
         IMAGE_TAG = "1.0.0"
+        SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
     }
 
     stages {
@@ -14,6 +15,56 @@ pipeline {
             steps {
                 sh 'jenkins/scripts/build_jars.sh'
             }
+        }
+
+        stage('SonarQube') {
+            steps {
+                withCredentials([string(credentialsId: 'ms-token-sonarqube', variable: 'SONAR_TOKEN')]) {
+                    withSonarQubeEnv('sonarqube') {
+                        sh '''
+                            cd products-service
+                            mvn clean verify jacoco:report
+
+                            ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                                -Dsonar.projectKey=microservices-project \
+                                -Dsonar.sources=src/main/java \
+                                -Dsonar.java.binaries=target/classes \
+                                -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                                -Dsonar.host.url=$SONAR_HOST_URL \
+                                -Dsonar.login=$SONAR_TOKEN
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    script {
+                        def qg = waitForQualityGate abortPipeline: false
+                        if (qg.status != 'OK') {
+                            echo "Quality Gate failed with status: ${qg.status}"
+                            mail to: 'zaouidoa9@gmail.com',
+                                subject: "Quality Gate failed",
+                                body: """\
+                                    Quality Gate failed with status: ${qg.status} for :
+
+                                    Jenkins Pipeline Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}
+
+                                    Check details and console output:
+                                    ${env.BUILD_URL}
+
+                                    Action is required.
+                                    """
+
+                        }else {
+                            echo "✅ Quality Gate passed."
+                            env.QUALITY_GATE_PASSED = "true"  // Marquer comme réussi
+                        }
+                }
+            }
+        }
         }
 
         stage('Deploy JARs to Nexus') {
@@ -141,31 +192,20 @@ pipeline {
     }
     post {
         success {
-            mail to: 'jenkinsserver15@gmail.com',
-                 subject: '✅ SUCCESS - Pipeline Passed',
-                 body: "The Jenkins pipeline has successfully completed. All stages passed.\n\n" +
-                       "Project: tp-foyer\n" +
-                       "Job: ${env.JOB_NAME}\n" +
-                       "Build: ${env.BUILD_NUMBER}\n" +
-                       "URL du Build: ${env.BUILD_URL}"
+            echo 'Pipeline completed successfully. All services are built, deployed to Nexus, and running.'
         }
         failure {
-            mail to: 'jenkinsserver15@gmail.com',
-                 subject: '❌ FAILURE - Pipeline Failed',
-                 body: "The Jenkins pipeline failed. Please check the Jenkins logs for more details.\n\n" +
-                       "Project: tp-foyer\n" +
-                       "Job: ${env.JOB_NAME}\n" +
-                       "Build: ${env.BUILD_NUMBER}\n" +
-                       "URL du Build: ${env.BUILD_URL}"
-        }
-        unstable {
-            mail to: 'jenkinsserver15@gmail.com',
-                 subject: '⚠️ UNSTABLE - Coverage Below Threshold',
-                 body: "The pipeline is unstable due to low code coverage or test failures.\n\n" +
-                       "Project: tp-foyer\n" +
-                       "Job: ${env.JOB_NAME}\n" +
-                       "Build: ${env.BUILD_NUMBER}\n" +
-                       "URL du Build: ${env.BUILD_URL}"
+            echo 'Pipeline failed.'
+            mail to: 'zaouidoa9@gmail.com',
+                subject: "Jenkins Pipeline Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """\
+                    The Jenkins pipeline for ${env.JOB_NAME} has failed.
+
+                    Check details and console output:
+                    ${env.BUILD_URL}
+
+                    Action is required.
+                    """
         }
     }
 }
