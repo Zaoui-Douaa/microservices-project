@@ -8,12 +8,23 @@ pipeline {
         IMAGE_NAME = "douaxx"
         IMAGE_TAG = "1.0.0"
         SONAR_SCANNER_HOME = tool 'SonarQubeScanner'
+        QUALITY_GATE_PASSED = "false"
     }
 
     stages {
-        stage('Build JARs') {
+        stage('Maven Build') {
             steps {
                 sh 'jenkins/scripts/build_jars.sh'
+            }
+        }
+        
+        stage('Mockito/JUnit') {
+            steps {
+                echo 'Mockito : ';
+                sh '''
+                    cd products-service
+                    mvn clean verify jacoco:report
+                '''
             }
         }
 
@@ -22,9 +33,6 @@ pipeline {
                 withCredentials([string(credentialsId: 'ms-token-sonarqube', variable: 'SONAR_TOKEN')]) {
                     withSonarQubeEnv('sonarqube') {
                         sh '''
-                            cd products-service
-                            mvn clean verify jacoco:report
-
                             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                                 -Dsonar.projectKey=microservices-project \
                                 -Dsonar.sources=src/main/java \
@@ -45,29 +53,22 @@ pipeline {
                         def qg = waitForQualityGate abortPipeline: false
                         if (qg.status != 'OK') {
                             echo "Quality Gate failed with status: ${qg.status}"
-                            mail to: 'zaouidoa9@gmail.com',
-                                subject: "Quality Gate failed",
-                                body: """\
-                                    Quality Gate failed with status: ${qg.status} for :
-
-                                    Jenkins Pipeline Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}
-
-                                    Check details and console output:
-                                    ${env.BUILD_URL}
-
-                                    Action is required.
-                                    """
-
+                            env.QUALITY_GATE_PASSED = "false" 
                         }else {
                             echo "✅ Quality Gate passed."
-                            env.QUALITY_GATE_PASSED = "true"  // Marquer comme réussi
+                            env.QUALITY_GATE_PASSED = "true"  
                         }
                 }
             }
         }
         }
 
-        stage('Deploy JARs to Nexus') {
+        stage('Publish to Nexus') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS' || env.QUALITY_GATE_PASSED == "true"
+                }
+            }
             steps {
                 sh 'jenkins/scripts/deploy_jars.sh'
             }
