@@ -195,7 +195,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=
+      - GF_INSTALL_PLUGINS=grafana-mongodb-datasource
     volumes:
       - ./monitoring/grafana-datasources:/etc/grafana/provisioning/datasources
       - ./monitoring/grafana-dashboards:/etc/grafana/provisioning/dashboards

@@ -12,15 +12,16 @@ pipeline {
     }
 
     stages {
-        stage('Maven Build') {
+        // 🔨 Étapes de Compilation et de Test
+        stage('01 - Maven Build') {
             steps {
                 sh 'jenkins/scripts/build_jars.sh'
             }
         }
         
-        stage('Mockito/JUnit') {
+        stage('02 - Unit Tests & Coverage (JUnit/Mockito)') {
             steps {
-                echo 'Mockito : ';
+                echo 'Mockito & JUnit :'
                 sh '''
                     cd products-service
                     mvn clean verify jacoco:report
@@ -28,7 +29,8 @@ pipeline {
             }
         }
 
-        stage('SonarQube') {
+        // 📊 Analyse de qualité avec SonarQube
+        stage('03 - Analysis SonarQube') {
             steps {
                 withCredentials([string(credentialsId: 'ms-token-sonarqube', variable: 'SONAR_TOKEN')]) {
                     withSonarQubeEnv('sonarqube') {
@@ -47,24 +49,25 @@ pipeline {
             }
         }
 
-        stage("Quality Gate") {
+        stage('04 - Sonar Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                     script {
                         def qg = waitForQualityGate abortPipeline: false
                         if (qg.status != 'OK') {
-                            echo "Quality Gate failed with status: ${qg.status}"
-                            env.QUALITY_GATE_PASSED = "false" 
-                        }else {
-                            echo "✅ Quality Gate passed."
-                            env.QUALITY_GATE_PASSED = "true"  
+                            echo "❌ Quality Gate échoué : ${qg.status}"
+                            env.QUALITY_GATE_PASSED = "false"
+                        } else {
+                            echo "✅ Quality Gate validé."
+                            env.QUALITY_GATE_PASSED = "true"
                         }
+                    }
                 }
             }
         }
-        }
 
-        stage('Publish to Nexus') {
+        // 📦 Publication
+        stage('05 - Publish Artifacts to Nexus') {
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS' || env.QUALITY_GATE_PASSED == "true"
@@ -74,14 +77,15 @@ pipeline {
                 sh 'jenkins/scripts/deploy_jars.sh'
             }
         }
-/*
-        stage('Start Databases') {
+
+        // ⚙️ Démarrage des bases de données
+        stage('06 - Start Databases') {
             steps {
                 sh 'jenkins/scripts/start_databases.sh'
             }
         }
 
-        stage('Wait for Databases Ready') {
+        stage('07 - Wait for Databases to be Ready') {
             steps {
                 script {
                     waitForContainerHealth('keycloak', 'pg_isready -U keycloak')
@@ -91,7 +95,8 @@ pipeline {
             }
         }
 
-        stage('Start keycloak and make it ready') {
+        // 🔑 Keycloak et infrastructure Kafka
+        stage('08 - Start Keycloak') {
             steps {
                 script {
                     sh 'docker-compose up -d keycloak'
@@ -100,7 +105,7 @@ pipeline {
             }
         }
 
-        stage('Start Zookeeper and make it ready') {
+        stage('09 - Start Zookeeper') {
             steps {
                 script {
                     sh 'docker-compose up -d zookeeper'
@@ -109,7 +114,7 @@ pipeline {
             }
         }
 
-        stage('Start kafka and make it ready') {
+        stage('10 - Start Kafka') {
             steps {
                 script {
                     sh 'docker-compose up -d kafka'
@@ -118,7 +123,7 @@ pipeline {
             }
         }
 
-        stage('Start kafdrop and make it ready') {
+        stage('11 - Start Kafdrop') {
             steps {
                 script {
                     sh 'docker-compose up -d kafdrop'
@@ -126,7 +131,7 @@ pipeline {
             }
         }
 
-        stage('Start Prometheus and make it ready') {
+        stage('12 - Start Prometheus') {
             steps {
                 script {
                     sh 'docker-compose up -d prometheus'
@@ -135,7 +140,7 @@ pipeline {
             }
         }
 
-        stage('Start Grafana and make it ready') {
+        stage('13 - Start Grafana') {
             steps {
                 script {
                     sh 'docker-compose up -d grafana'
@@ -144,21 +149,21 @@ pipeline {
             }
         }
 
-        stage('Build and Run Config Server') {
+        stage('14 - Build and Run Config Server') {
             steps {
                 sh 'jenkins/scripts/build_run_config_server.sh'
                 waitForHttpService('http://localhost:8088/actuator/health')
             }
         }
 
-        stage('Build and Run Eureka Server') {
+        stage('15 - Build and Run Eureka Server') {
             steps {
                 sh 'jenkins/scripts/build_run_eureka_server.sh'
                 waitForHttpService('http://localhost:8761/actuator/health')
             }
         }
 
-        stage('Start Gateway and make it ready') {
+        stage('16 - Start API Gateway') {
             steps {
                 script {
                     sh 'jenkins/scripts/build_run_gateway.sh'
@@ -167,31 +172,33 @@ pipeline {
             }
         }
 
-        stage('Build and Run Microservices') {
+        stage('17 - Build and Run Microservices') {
             steps {
                 sh 'jenkins/scripts/build_run_microservices.sh'
             }
         }
-    stage('Docker Image - config-server') {
-        steps {
-            echo 'Création de l’image Docker pour config-server :'
-            dir('config-server') {  // se placer dans le dossier config-server
-                sh 'docker build -t $IMAGE_NAME/config-server:$IMAGE_TAG .'
+
+        stage('18 - Build Docker Image') {
+            steps {
+                echo 'Création de l’image Docker pour config-server :'
+                dir('config-server') {  
+                    sh 'docker build -t $IMAGE_NAME/config-server:$IMAGE_TAG .'
+                }
             }
         }
-    }
 
-    stage('Docker Hub - config-server') {
-        steps {
-            echo 'Push de l’image config-server vers Docker Hub :'
-            sh '''
-                docker login -u $DOCKER_HUB_CRED_USR -p $DOCKER_HUB_CRED_PSW
-                docker push $IMAGE_NAME/config-server:$IMAGE_TAG
-            '''
+        stage('19 - Docker Hub') {
+            steps {
+                echo 'Push de l’image config-server vers Docker Hub :'
+                sh '''
+                    docker login -u $DOCKER_HUB_CRED_USR -p $DOCKER_HUB_CRED_PSW
+                    docker push $IMAGE_NAME/config-server:$IMAGE_TAG
+                '''
+            }
         }
+
     }
-*/
-    }
+    
     post {
         success {
             echo 'Pipeline completed successfully. All services are built, deployed to Nexus, and running.'
