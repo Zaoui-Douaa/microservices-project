@@ -33,6 +33,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'ms-token-sonarqube', variable: 'SONAR_TOKEN')]) {
                     withSonarQubeEnv('sonarqube') {
                         sh '''
+                            cd products-service
                             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                                 -Dsonar.projectKey=microservices-project \
                                 -Dsonar.sources=src/main/java \
