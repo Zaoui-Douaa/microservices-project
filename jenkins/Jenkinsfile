@@ -123,15 +123,7 @@ pipeline {
             }
         }
 
-        stage('11 - Start Kafdrop') {
-            steps {
-                script {
-                    sh 'docker-compose up -d kafdrop'
-                }
-            }
-        }
-
-        stage('12 - Start Prometheus') {
+        stage('11 - Start Prometheus') {
             steps {
                 script {
                     sh 'docker-compose up -d prometheus'
@@ -140,7 +132,7 @@ pipeline {
             }
         }
 
-        stage('13 - Start Grafana') {
+        stage('12 - Start Grafana') {
             steps {
                 script {
                     sh 'docker-compose up -d grafana'
@@ -149,21 +141,21 @@ pipeline {
             }
         }
 
-        stage('14 - Build and Run Config Server') {
+        stage('13 - Build and Run Config Server') {
             steps {
                 sh 'jenkins/scripts/build_run_config_server.sh'
                 waitForHttpService('http://localhost:8088/actuator/health')
             }
         }
 
-        stage('15 - Build and Run Eureka Server') {
+        stage('14 - Build and Run Eureka Server') {
             steps {
                 sh 'jenkins/scripts/build_run_eureka_server.sh'
                 waitForHttpService('http://localhost:8761/actuator/health')
             }
         }
 
-        stage('16 - Start API Gateway') {
+        stage('15 - Start API Gateway') {
             steps {
                 script {
                     sh 'jenkins/scripts/build_run_gateway.sh'
@@ -172,13 +164,13 @@ pipeline {
             }
         }
 
-        stage('17 - Build and Run Microservices') {
+        stage('16 - Build and Run Microservices') {
             steps {
                 sh 'jenkins/scripts/build_run_microservices.sh'
             }
         }
 
-        stage('18 - Build Docker Image') {
+        stage('17 - Build Docker Image') {
             steps {
                 echo 'Création de l’image Docker pour config-server :'
                 dir('config-server') {  
@@ -187,7 +179,7 @@ pipeline {
             }
         }
 
-        stage('19 - Docker Hub') {
+        stage('18 - Docker Hub') {
             steps {
                 echo 'Push de l’image config-server vers Docker Hub :'
                 sh '''
