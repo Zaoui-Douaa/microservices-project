@@ -13,3 +13,16 @@ spring:
       server:
         git:
           uri: https://github.com/Zaoui-Douaa/microservices-config-repository.git 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true

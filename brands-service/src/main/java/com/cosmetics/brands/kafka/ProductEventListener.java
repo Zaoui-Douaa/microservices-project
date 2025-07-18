@@ -14,7 +14,7 @@ public class ProductEventListener {
 
     @KafkaListener(topics = "product-events", containerFactory = "kafkaListenerContainerFactory")
     public void handleProductEvent() {
-                logger.info("Produit reçu via Kafka - ID: {}, Nom: {}");
+                logger.info("Produit reçu via Kafka !!");
 
     }
 

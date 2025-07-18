@@ -102,7 +102,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "process_uptime_seconds{application=\"$application\", instance=\"172.18.0.16:8082\"}",
+          "expr": "process_uptime_seconds{application=\"$application\", instance=\"brands-service:8082\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -187,7 +187,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(jvm_memory_used_bytes{application=\"$application\", instance=\"172.18.0.16:8082\", area=\"heap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",instance=\"172.18.0.16:8082\", area=\"heap\"})",
+          "expr": "sum(jvm_memory_used_bytes{application=\"$application\", instance=\"brands-service:8082\", area=\"heap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",instance=\"brands-service:8082\", area=\"heap\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -281,7 +281,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(jvm_memory_used_bytes{application=\"$application\", instance=\"172.18.0.16:8082\", area=\"nonheap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",instance=\"172.18.0.16:8082\", area=\"nonheap\"})",
+          "expr": "sum(jvm_memory_used_bytes{application=\"$application\", instance=\"brands-service:8082\", area=\"nonheap\"})*100/sum(jvm_memory_max_bytes{application=\"$application\",instance=\"brands-service:8082\", area=\"nonheap\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -380,7 +380,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "process_files_open_files{application=\"$application\", instance=\"172.18.0.16:8082\"}",
+          "expr": "process_files_open_files{application=\"$application\", instance=\"brands-service:8082\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Open Files",
@@ -391,7 +391,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "process_files_max_files{application=\"$application\", instance=\"172.18.0.16:8082\"}",
+          "expr": "process_files_max_files{application=\"$application\", instance=\"brands-service:8082\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Max Files",
@@ -467,7 +467,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "process_start_time_seconds{application=\"$application\", instance=\"172.18.0.16:8082\"}*1000",
+          "expr": "process_start_time_seconds{application=\"$application\", instance=\"brands-service:8082\"}*1000",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -572,7 +572,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "system_cpu_usage{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "system_cpu_usage{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "System CPU Usage",
@@ -583,7 +583,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "process_cpu_usage{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "process_cpu_usage{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Process CPU Usage",
@@ -686,7 +686,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "system_load_average_1m{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "system_load_average_1m{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Load Average [1m]",
@@ -697,7 +697,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "system_cpu_count{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "system_cpu_count{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "CPU Core Size",
@@ -747,7 +747,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_used_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
+          "expr": "jvm_memory_used_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Used",
@@ -758,7 +758,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_committed_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
+          "expr": "jvm_memory_committed_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Commited",
@@ -769,7 +769,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_max_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
+          "expr": "jvm_memory_max_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_heap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Max",
@@ -806,7 +806,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_used_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
+          "expr": "jvm_memory_used_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Used",
@@ -817,7 +817,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_committed_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
+          "expr": "jvm_memory_committed_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Commited",
@@ -828,7 +828,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_memory_max_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
+          "expr": "jvm_memory_max_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"$memory_pool_nonheap\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Max",
@@ -876,7 +876,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_threads_daemon_threads{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jvm_threads_daemon_threads{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Daemon",
@@ -887,7 +887,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_threads_live_threads{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jvm_threads_live_threads{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Live",
@@ -898,7 +898,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_threads_peak_threads{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jvm_threads_peak_threads{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Peak",
@@ -933,7 +933,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(jvm_gc_memory_allocated_bytes_total{instance=\"172.18.0.16:8082\", application=\"$application\"}[5m])",
+          "expr": "irate(jvm_gc_memory_allocated_bytes_total{instance=\"brands-service:8082\", application=\"$application\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "allocated",
@@ -944,7 +944,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(jvm_gc_memory_promoted_bytes_total{instance=\"172.18.0.16:8082\", application=\"$application\"}[5m])",
+          "expr": "irate(jvm_gc_memory_promoted_bytes_total{instance=\"brands-service:8082\", application=\"$application\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "promoted",
@@ -979,7 +979,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_classes_loaded_classes{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jvm_classes_loaded_classes{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Classes Loaded",
@@ -1014,7 +1014,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(jvm_classes_unloaded_classes_total{instance=\"172.18.0.16:8082\", application=\"$application\"}[5m])",
+          "expr": "irate(jvm_classes_unloaded_classes_total{instance=\"brands-service:8082\", application=\"$application\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Classes Unloaded",
@@ -1049,7 +1049,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_buffer_memory_used_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"direct\"}",
+          "expr": "jvm_buffer_memory_used_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"direct\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Used Bytes",
@@ -1060,7 +1060,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_buffer_total_capacity_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"direct\"}",
+          "expr": "jvm_buffer_total_capacity_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"direct\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Capacity Bytes",
@@ -1095,7 +1095,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_buffer_memory_used_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"mapped\"}",
+          "expr": "jvm_buffer_memory_used_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"mapped\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Used Bytes",
@@ -1106,7 +1106,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jvm_buffer_total_capacity_bytes{instance=\"172.18.0.16:8082\", application=\"$application\", id=\"mapped\"}",
+          "expr": "jvm_buffer_total_capacity_bytes{instance=\"brands-service:8082\", application=\"$application\", id=\"mapped\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Capacity Bytes",
@@ -1154,7 +1154,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(jvm_gc_pause_seconds_count{instance=\"172.18.0.16:8082\", application=\"$application\"}[5m])",
+          "expr": "irate(jvm_gc_pause_seconds_count{instance=\"brands-service:8082\", application=\"$application\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{action}} [{{cause}}]",
@@ -1189,7 +1189,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(jvm_gc_pause_seconds_sum{instance=\"172.18.0.16:8082\", application=\"$application\"}[5m])",
+          "expr": "irate(jvm_gc_pause_seconds_sum{instance=\"brands-service:8082\", application=\"$application\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{action}} [{{cause}}]",
@@ -1236,7 +1236,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1271,7 +1271,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_active{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_active{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Active",
@@ -1282,7 +1282,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_idle{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_idle{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Idle",
@@ -1293,7 +1293,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_pending{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_pending{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Pending",
@@ -1327,7 +1327,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_timeout_total{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_timeout_total{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1362,7 +1362,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_creation_seconds_sum{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_creation_seconds_sum{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_creation_seconds_count{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Creation Time",
@@ -1397,7 +1397,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_usage_seconds_sum{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_usage_seconds_sum{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_usage_seconds_count{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Usage Time",
@@ -1432,7 +1432,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "hikaricp_connections_acquire_seconds_sum{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{instance=\"172.18.0.16:8082\", application=\"$application\", pool=\"$hikaricp\"}",
+          "expr": "hikaricp_connections_acquire_seconds_sum{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"} / hikaricp_connections_acquire_seconds_count{instance=\"brands-service:8082\", application=\"$application\", pool=\"$hikaricp\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Acquire Time",
@@ -1479,7 +1479,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_config_min{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_config_min{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Min threads",
@@ -1514,7 +1514,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\", status=~\"5..\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\", status=~\"5..\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "5xx - Server Errors",
@@ -1525,7 +1525,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\", status=~\"4..\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\", status=~\"4..\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "4xx - Client Errors",
@@ -1536,7 +1536,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\", status=~\"2..\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\", status=~\"2..\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "2xx - Success",
@@ -1547,7 +1547,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\", status=~\"3..\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\", status=~\"3..\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "3xx - Redirections",
@@ -1581,7 +1581,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_config_max{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_config_max{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Max threads",
@@ -1617,7 +1617,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\"}[1m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -1653,7 +1653,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(rate(http_server_requests_seconds_sum{application=\"$application\", instance=\"172.18.0.16:8082\", status!~\"5..\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\", status!~\"5..\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_seconds_sum{application=\"$application\", instance=\"brands-service:8082\", status!~\"5..\"}[1m]))/sum(rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\", status!~\"5..\"}[1m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -1665,7 +1665,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "max(http_server_requests_seconds_max{application=\"$application\", instance=\"172.18.0.16:8082\", status!~\"5..\"})",
+          "expr": "max(http_server_requests_seconds_max{application=\"$application\", instance=\"brands-service:8082\", status!~\"5..\"})",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -1701,7 +1701,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "topk(10, sum by(uri, method) (rate(http_server_requests_seconds_count{application=\"$application\", instance=\"172.18.0.16:8082\"}[1m])))",
+          "expr": "topk(10, sum by(uri, method) (rate(http_server_requests_seconds_count{application=\"$application\", instance=\"brands-service:8082\"}[1m])))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{uri}}",
@@ -1736,7 +1736,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_current{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_current{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current thread",
@@ -1747,7 +1747,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_busy{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_busy{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Busy thread",
@@ -1758,7 +1758,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_idle{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_idle{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Idle threads",
@@ -1769,7 +1769,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "jetty_threads_jobs{instance=\"172.18.0.16:8082\", application=\"$application\"}",
+          "expr": "jetty_threads_jobs{instance=\"brands-service:8082\", application=\"$application\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Jobs  threads",
@@ -1818,7 +1818,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(logback_events_total{instance=\"172.18.0.16:8082\", application=\"$application\", level=\"info\"}[5m])",
+          "expr": "irate(logback_events_total{instance=\"brands-service:8082\", application=\"$application\", level=\"info\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "info",
@@ -1855,7 +1855,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(logback_events_total{instance=\"172.18.0.16:8082\", application=\"$application\", level=\"error\"}[5m])",
+          "expr": "irate(logback_events_total{instance=\"brands-service:8082\", application=\"$application\", level=\"error\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "error",
@@ -1892,7 +1892,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(logback_events_total{instance=\"172.18.0.16:8082\", application=\"$application\", level=\"warn\"}[5m])",
+          "expr": "irate(logback_events_total{instance=\"brands-service:8082\", application=\"$application\", level=\"warn\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "warn",
@@ -1929,7 +1929,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(logback_events_total{instance=\"172.18.0.16:8082\", application=\"$application\", level=\"debug\"}[5m])",
+          "expr": "irate(logback_events_total{instance=\"brands-service:8082\", application=\"$application\", level=\"debug\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "debug",
@@ -1966,7 +1966,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "irate(logback_events_total{instance=\"172.18.0.16:8082\", application=\"$application\", level=\"trace\"}[5m])",
+          "expr": "irate(logback_events_total{instance=\"brands-service:8082\", application=\"$application\", level=\"trace\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "trace",
@@ -1987,7 +1987,7 @@
       {
         "current": {
           "text": "Brands Service",
-          "value": "172.18.0.16:8082"
+          "value": "brands-service:8082"
         },
         "datasource": "PBFA97CFB590B2093",
         "definition": "label_values(application)",
@@ -2003,8 +2003,8 @@
       },
       {
         "current": {
-          "text": "172.18.0.16:8082",
-          "value": "172.18.0.16:8082"
+          "text": "brands-service:8082",
+          "value": "brands-service:8082"
         },
         "datasource": "PBFA97CFB590B2093",
         "definition": "label_values(jvm_classes_loaded_classes{application=\"$application\"}, instance)",
@@ -2029,7 +2029,7 @@
         "label": "HikariCP-Pool",
         "name": "hikaricp",
         "options": [],
-        "query": "label_values(hikaricp_connections{instance=\"172.18.0.16:8082\", application=\"$application\"}, pool)",
+        "query": "label_values(hikaricp_connections{instance=\"brands-service:8082\", application=\"$application\"}, pool)",
         "refresh": 1,
         "regex": "",
         "sort": 1,
@@ -2046,7 +2046,7 @@
         "label": "Memory Pool (heap)",
         "name": "memory_pool_heap",
         "options": [],
-        "query": "label_values(jvm_memory_used_bytes{application=\"$application\", instance=\"172.18.0.16:8082\", area=\"heap\"},id)",
+        "query": "label_values(jvm_memory_used_bytes{application=\"$application\", instance=\"brands-service:8082\", area=\"heap\"},id)",
         "refresh": 1,
         "regex": "",
         "sort": 1,
@@ -2063,7 +2063,7 @@
         "label": "Memory Pool (nonheap)",
         "name": "memory_pool_nonheap",
         "options": [],
-        "query": "label_values(jvm_memory_used_bytes{application=\"$application\", instance=\"172.18.0.16:8082\", area=\"nonheap\"},id)",
+        "query": "label_values(jvm_memory_used_bytes{application=\"$application\", instance=\"brands-service:8082\", area=\"nonheap\"},id)",
         "refresh": 1,
         "regex": "",
         "sort": 1,

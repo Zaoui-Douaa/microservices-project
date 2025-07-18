@@ -6,17 +6,19 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.config.Customizer;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-   @Bean
+    @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
             .csrf().disable()
             .authorizeExchange(exchange -> exchange
                 .pathMatchers("/eureka/**").permitAll()
+                .pathMatchers("/actuator/**").permitAll()
                 .anyExchange().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
@@ -25,4 +27,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }
